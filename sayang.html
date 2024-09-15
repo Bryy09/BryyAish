@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Sambutan Istimewa untuk Kekasihku</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background-color: #ffcccc;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+            position: relative;
+        }
+        h1 {
+            color: #ff0066;
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #333;
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        .heart {
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: #ff0066;
+            transform: rotate(45deg);
+            animation: float 5s ease-in-out infinite;
+            border-radius: 50% 50% 0 0;
+        }
+        .heart::before, .heart::after {
+            content: "";
+            position: absolute;
+            width: 50px;
+            height: 50px;
+            background-color: #ff0066;
+            border-radius: 50%;
+        }
+        .heart::before {
+            top: -25px;
+            left: 0;
+        }
+        .heart::after {
+            top: 0;
+            left: -25px;
+        }
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(45deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-800px) rotate(45deg);
+                opacity: 0;
+            }
+        }
+        @keyframes drift {
+            0% {
+                transform: translateX(0px);
+            }
+            50% {
+                transform: translateX(50px);
+            }
+            100% {
+                transform: translateX(0px);
+            }
+        }
+        .heart:nth-child(1) {
+            left: 20%;
+            animation-duration: 4s;
+            animation-delay: 0s;
+        }
+        .heart:nth-child(2) {
+            left: 40%;
+            animation-duration: 6s;
+            animation-delay: 2s;
+        }
+        .heart:nth-child(3) {
+            left: 60%;
+            animation-duration: 5s;
+            animation-delay: 4s;
+        }
+        .heart:nth-child(4) {
+            left: 80%;
+            animation-duration: 7s;
+            animation-delay: 1s;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Untuk Kekasihku</h1>
+        <p>Kamu adalah cahaya dalam hidupku, aku sangat mencintaimu.</p>
+        <p>Selalu bersamaku ya, aku tak ingin tanpamu.</p>
+    </div>
+
+    <!-- Animasi Hati -->
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+    <div class="heart"></div>
+</body>
+</html>
