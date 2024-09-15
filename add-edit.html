@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tambah/Edit Data</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="add-edit.html">Tambah/Edit Data</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <h1>Tambah/Edit Catatan</h1>
+        <form id="data-form">
+            <input type="hidden" id="note-id">
+            <label for="title">Judul:</label>
+            <input type="text" id="title" required>
+
+            <label for="content">Konten:</label>
+            <textarea id="content" rows="5" required></textarea>
+
+            <button type="submit">Simpan</button>
+        </form>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const dataForm = document.getElementById('data-form');
+            const noteIdInput = document.getElementById('note-id');
+            const titleInput = document.getElementById('title');
+            const contentInput = document.getElementById('content');
+
+            const queryParams = new URLSearchParams(window.location.search);
+            const noteIndex = queryParams.get('id');
+
+            const notes = JSON.parse(localStorage.getItem('notes')) || [];
+
+            if (noteIndex !== null) {
+                const note = notes[noteIndex];
+                noteIdInput.value = noteIndex;
+                titleInput.value = note.title;
+                contentInput.value = note.content;
+            }
+
+            dataForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const title = titleInput.value;
+                const content = contentInput.value;
+                const id = noteIdInput.value;
+
+                if (id) {
+                    notes[id] = { title, content };
+                } else {
+                    notes.push({ title, content });
+                }
+
+                localStorage.setItem('notes', JSON.stringify(notes));
+                window.location.href = 'index.html';
+            });
+        });
+    </script>
+</body>
+</html>
