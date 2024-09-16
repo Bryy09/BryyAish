@@ -191,6 +191,45 @@
             const closeButton = document.querySelector('.close-button');
             const dataForm = document.getElementById('dataForm');
             let editingRow = null;
+            let dataList = JSON.parse(localStorage.getItem('dataList')) || []; // Ambil data dari localStorage
+
+            // Fungsi untuk merender ulang data tabel dari localStorage
+            const renderTable = () => {
+                dataTable.innerHTML = '';
+                dataList.forEach((data, index) => {
+                    const newRow = dataTable.insertRow();
+                    newRow.insertCell(0).textContent = index + 1;
+                    newRow.insertCell(1).textContent = data.name;
+                    newRow.insertCell(2).textContent = data.phone;
+                    newRow.insertCell(3).textContent = data.password;
+                    const actionCell = newRow.insertCell(4);
+
+                    const editButton = document.createElement('button');
+                    editButton.textContent = 'Edit';
+                    editButton.addEventListener('click', () => {
+                        document.getElementById('name').value = data.name;
+                        document.getElementById('phone').value = data.phone;
+                        document.getElementById('password').value = data.password;
+                        document.getElementById('dataId').value = index;
+                        editingRow = newRow;
+                        modal.style.display = 'block';
+                    });
+                    
+                    const deleteButton = document.createElement('button');
+                    deleteButton.textContent = 'Hapus';
+                    deleteButton.addEventListener('click', () => {
+                        dataList.splice(index, 1); // Hapus dari array
+                        localStorage.setItem('dataList', JSON.stringify(dataList)); // Simpan perubahan ke localStorage
+                        renderTable(); // Render ulang tabel
+                    });
+
+                    actionCell.appendChild(editButton);
+                    actionCell.appendChild(deleteButton);
+                });
+            };
+
+            // Render tabel saat halaman pertama kali dibuka
+            renderTable();
 
             document.getElementById('addDataButton').addEventListener('click', () => {
                 dataForm.reset();
@@ -209,35 +248,19 @@
                 const password = document.getElementById('password').value;
                 const dataId = document.getElementById('dataId').value;
 
-                if (editingRow) {
-                    editingRow.cells[1].textContent = name;
-                    editingRow.cells[2].textContent = phone;
-                    editingRow.cells[3].textContent = password;
+                if (editingRow !== null) {
+                    // Edit data
+                    dataList[dataId] = { name, phone, password };
                 } else {
-                    const newRow = dataTable.insertRow();
-                    newRow.insertCell(0).textContent = dataTable.rows.length;
-                    newRow.insertCell(1).textContent = name;
-                    newRow.insertCell(2).textContent = phone;
-                    newRow.insertCell(3).textContent = password;
-                    const actionCell = newRow.insertCell(4);
-                    const editButton = document.createElement('button');
-                    editButton.textContent = 'Edit';
-                    editButton.addEventListener('click', () => {
-                        document.getElementById('name').value = newRow.cells[1].textContent;
-                        document.getElementById('phone').value = newRow.cells[2].textContent;
-                        document.getElementById('password').value = newRow.cells[3].textContent;
-                        document.getElementById('dataId').value = newRow.cells[0].textContent;
-                        editingRow = newRow;
-                        modal.style.display = 'block';
-                    });
-                    const deleteButton = document.createElement('button');
-                    deleteButton.textContent = 'Hapus';
-                    deleteButton.addEventListener('click', () => {
-                        dataTable.deleteRow(newRow.rowIndex - 1);
-                    });
-                    actionCell.appendChild(editButton);
-                    actionCell.appendChild(deleteButton);
+                    // Tambah data baru
+                    dataList.push({ name, phone, password });
                 }
+
+                // Simpan data ke localStorage
+                localStorage.setItem('dataList', JSON.stringify(dataList));
+
+                // Render ulang tabel dan tutup modal
+                renderTable();
                 modal.style.display = 'none';
             });
         });
