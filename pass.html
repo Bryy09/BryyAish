@@ -3,62 +3,63 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Password Protected Page</title>
     <style>
-        body, html {
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
             height: 100%;
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow: hidden;
         }
 
-        /* Menambahkan video sebagai background */
-        .video-background {
+        /* Video Background */
+        #videoBackground {
             position: fixed;
-            right: 0;
-            bottom: 0;
+            top: 0;
+            left: 0;
             min-width: 100%;
             min-height: 100%;
             z-index: -1;
+            object-fit: cover;
         }
 
         .container {
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.6); /* Lebih transparan */
+            padding: 30px;
             border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             width: 300px;
-        }
-
-        h2 {
             text-align: center;
+            z-index: 1;
+            position: relative;
         }
 
-        form {
-            display: flex;
-            flex-direction: column;
+        h1 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
         }
 
-        label {
-            margin-top: 10px;
-        }
-
-        input {
+        input[type="password"] {
+            width: 100%;
             padding: 10px;
-            margin-top: 5px;
+            font-size: 1em;
+            margin-bottom: 20px;
             border: 1px solid #ccc;
             border-radius: 5px;
         }
 
         button {
-            margin-top: 20px;
-            padding: 10px;
-            background-color: #28a745;
+            padding: 10px 20px;
+            font-size: 1.1em;
             color: white;
+            background-color: #28a745;
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -67,43 +68,39 @@
         button:hover {
             background-color: #218838;
         }
+
+        .error {
+            color: red;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
 
     <!-- Video Background -->
-    <video autoplay muted loop class="video-background">
+    <video autoplay muted loop id="videoBackground">
         <source src="bg.mp4" type="video/mp4">
-        Your browser does not support HTML5 video.
+        Your browser does not support the video tag.
     </video>
 
     <div class="container">
-        <h2>Login</h2>
-        <form id="loginForm">
-            <label for="loginUsername">Username:</label>
-            <input type="text" id="loginUsername" required>
-            <label for="loginPassword">Password:</label>
-            <input type="password" id="loginPassword" required>
-            <button type="submit">Login</button>
-        </form>
+        <h1>Password Protected</h1>
+        <input type="password" id="passwordInput" placeholder="Enter Password" required>
+        <button id="submitBtn">Submit</button>
+        <p id="errorMessage" class="error"></p>
     </div>
 
     <script>
-        // Fungsi untuk melakukan login
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
-            e.preventDefault();
+        document.getElementById('submitBtn').addEventListener('click', function() {
+            const password = document.getElementById('passwordInput').value;
+            const correctPassword = "BryyAish";
 
-            const username = document.getElementById('loginUsername').value;
-            const password = document.getElementById('loginPassword').value;
-
-            const storedUsername = localStorage.getItem('username');
-            const storedPassword = localStorage.getItem('password');
-
-            if (username === storedUsername && password === storedPassword) {
-                alert('Login berhasil!');
-                window.location.href = 'data.html'; // Redirect ke halaman berikutnya
+            if (password === correctPassword) {
+                // Redirect ke halaman index.html jika password benar
+                window.location.href = 'data.html';
             } else {
-                alert('Username atau password salah!');
+                // Menampilkan pesan kesalahan jika password salah
+                document.getElementById('errorMessage').textContent = "Incorrect password, please try again.";
             }
         });
     </script>
