@@ -1,109 +1,128 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Password Protected Page</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        body, html {
-            height: 100%;
-            font-family: 'Arial', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+        <meta name="description" content="">
+        <meta name="author" content="">
 
-        /* Video Background */
-        #videoBackground {
-            position: fixed;
-            top: 0;
-            left: 0;
-            min-width: 100%;
-            min-height: 100%;
-            z-index: -1;
-            object-fit: cover;
-        }
+        <title>Kool Form Pack | Login page</title>
 
-        .container {
-            background-color: rgba(255, 255, 255, 0.6); /* Lebih transparan */
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            width: 300px;
-            text-align: center;
-            z-index: 1;
-            position: relative;
-        }
+        <!-- CSS FILES -->                
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-        h1 {
-            font-size: 1.8em;
-            margin-bottom: 20px;
-        }
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;0,700;1,200&family=Unbounded:wght@400;700&display=swap" rel="stylesheet">
+        
+        <link href="css/bootstrap.min.css" rel="stylesheet">
 
-        input[type="password"] {
-            width: 100%;
-            padding: 10px;
-            font-size: 1em;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
+        <link href="css/bootstrap-icons.css" rel="stylesheet">
 
-        button {
-            padding: 10px 20px;
-            font-size: 1.1em;
-            color: white;
-            background-color: #28a745;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-        }
+        <link href="css/tooplate-kool-form-pack.css" rel="stylesheet">
+    </head>
+    
+    <body>
 
-        button:hover {
-            background-color: #218838;
-        }
+        <main>
 
-        .error {
-            color: red;
-            margin-top: 10px;
-        }
-    </style>
-</head>
-<body>
+            <header class="site-header">
+                <div class="container">
+                    <div class="row justify-content-between">
 
-    <!-- Video Background -->
-    <video autoplay muted loop id="videoBackground">
-        <source src="bg.mp4" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
+                        <div class="col-lg-12 col-12 d-flex">
+                            <a class="site-header-text d-flex justify-content-center align-items-center me-auto" href="index.html">
+                                <i class="bi-box"></i>
 
-    <div class="container">
-        <h1>Password Protected</h1>
-        <input type="password" id="passwordInput" placeholder="Enter Password" required>
-        <button id="submitBtn">Submit</button>
-        <p id="errorMessage" class="error"></p>
-    </div>
+                                <span>
+                                    Kool Form Pack
+                                </span>
+                            </a>
 
-    <script>
-        document.getElementById('submitBtn').addEventListener('click', function() {
-            const password = document.getElementById('passwordInput').value;
-            const correctPassword = "BryyAish";
+                            <ul class="social-icon d-flex justify-content-center align-items-center mx-auto">
+                                <span class="text-white me-4 d-none d-lg-block">Stay connected</span>
 
-            if (password === correctPassword) {
-                // Redirect ke halaman index.html jika password benar
-                window.location.href = 'homeee.html';
-            } else {
-                // Menampilkan pesan kesalahan jika password salah
-                document.getElementById('errorMessage').textContent = "Incorrect password, please try again.";
+                                <li class="social-icon-item">
+                                    <a href="#" class="social-icon-link bi-instagram"></a>
+                                </li>
+
+                                <li class="social-icon-item">
+                                    <a href="#" class="social-icon-link bi-twitter"></a>
+                                </li>
+
+                                <li class="social-icon-item">
+                                    <a href="#" class="social-icon-link bi-whatsapp"></a>
+                                </li>
+                            </ul>
+
+                            <div>
+                                <a href="#" class="custom-btn custom-border-btn btn" data-bs-toggle="modal" data-bs-target="#subscribeModal">Notify me
+                                    <i class="bi-arrow-right ms-2"></i>
+                                </a>
+                            </div>
+
+                            <a class="bi-list offcanvas-icon" data-bs-toggle="offcanvas" href="#offcanvasMenu" role="button" aria-controls="offcanvasMenu"></a>
+
+                        </div>
+
+                    </div>
+                </div>
+            </header>
+
+            <section class="hero-section d-flex justify-content-center align-items-center">
+                <div class="container">
+                    <div class="row">
+
+                        <div class="col-lg-5 col-12 mx-auto">
+                            <form class="custom-form login-form" role="form" method="post" onsubmit="return validatePassword()">
+                                <h2 class="hero-title text-center mb-4 pb-2">Login Form</h2>
+
+                                <div class="form-floating p-0">
+                                    <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
+                                    <label for="password">Password</label>
+                                </div>
+
+                                <div class="row justify-content-center align-items-center">
+                                    <div class="col-lg-5 col-12">
+                                        <button type="submit" class="btn custom-btn">Login</button>
+                                    </div>
+                                </div>
+
+                            </form>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <div class="video-wrap">
+                    <video autoplay loop muted class="custom-video" poster="">
+                        <source src="videos/video.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </section>
+        </main>
+
+        <!-- JAVASCRIPT FILES -->
+        <script src="js/jquery.min.js"></script>
+        <script src="js/bootstrap.bundle.min.js"></script>
+        <script src="js/countdown.js"></script>
+        <script src="js/init.js"></script>
+
+        <!-- Custom Script -->
+        <script>
+            function validatePassword() {
+                var password = document.getElementById("password").value;
+                if (password === "BryyAish") {
+                    window.location.href = "homeee.html";
+                    return false;
+                } else {
+                    alert("Password salah!");
+                    return false;
+                }
             }
-        });
-    </script>
+        </script>
 
-</body>
+    </body>
 </html>
